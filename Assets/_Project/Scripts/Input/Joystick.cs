@@ -1,0 +1,114 @@
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+
+namespace _Project.Scripts.Input
+{
+    public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
+    {
+        [SerializeField] private RectTransform _joystickBackground;
+        [SerializeField] private RectTransform _joystickHandle;
+        [SerializeField] private float _handleRange = 1f;
+        [SerializeField] private bool _isDynamic = true;
+        [SerializeField] private float _fadeDuration = 1f;
+        private Vector2 _inputVector = Vector2.zero;
+        private CanvasGroup _canvasGroup;
+        public bool IsPointerDown { get; private set; } = false;
+        public bool ShootPressed { get; set; }
+        public bool ShootLaserPressed { get; set; }
+
+        private void Awake()
+        {
+            _canvasGroup = GetComponent<CanvasGroup>();
+            if (_canvasGroup == null)
+            {
+                _canvasGroup = gameObject.AddComponent<CanvasGroup>();
+            }
+
+            if (!_isDynamic)
+            {
+                _joystickBackground.gameObject.SetActive(true);
+                GetComponent<Image>().raycastTarget = false;
+            }
+            else
+            {
+                _joystickBackground.gameObject.SetActive(false);
+            }
+        }
+
+        private void Update()
+        {
+            if (!IsPointerDown && _canvasGroup.alpha > 0)
+            {
+                _canvasGroup.alpha -= Time.deltaTime / _fadeDuration;
+            }
+        }
+
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            IsPointerDown = true;
+            _canvasGroup.alpha = 1f;
+
+            if (_isDynamic)
+            {
+                _joystickBackground.position = eventData.position;
+                _joystickBackground.gameObject.SetActive(true);
+
+            }
+
+            OnDrag(eventData);
+        }
+
+        public void ResetJoystick()
+        {
+            _inputVector = Vector2.zero;
+            _joystickHandle.anchoredPosition = Vector2.zero;
+            IsPointerDown = false;
+            if (_isDynamic)
+            {
+                _joystickBackground.gameObject.SetActive(false);
+            }
+
+            _canvasGroup.alpha = 0f;
+        }
+
+
+        public void OnDrag(PointerEventData eventData)
+        {
+            Vector2 direction = eventData.position - (Vector2)_joystickBackground.position;
+            _inputVector = direction.magnitude > _joystickBackground.sizeDelta.x / 2f
+                ? direction.normalized
+                : direction / (_joystickBackground.sizeDelta.x / 2f);
+
+            _joystickHandle.anchoredPosition = _inputVector * _joystickBackground.sizeDelta.x / 2f * _handleRange;
+
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                _joystickBackground,
+                _joystickHandle.position,
+                null,
+                out var localHandlePos
+            );
+
+            float distanceToCenter = localHandlePos.magnitude;
+            float backgroundRadius = _joystickBackground.sizeDelta.x * 0.5f;
+
+        }
+
+        public void OnPointerUp(PointerEventData eventData)
+        {
+            IsPointerDown = false;
+            _inputVector = Vector2.zero;
+            _joystickHandle.anchoredPosition = Vector2.zero;
+
+            if (_isDynamic)
+            {
+                _joystickBackground.gameObject.SetActive(false);
+            }
+        }
+
+        public Vector2 GetInputVector()
+        {
+            return _inputVector;
+        }
+    }
+}
