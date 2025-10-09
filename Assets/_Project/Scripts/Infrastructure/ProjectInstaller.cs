@@ -7,12 +7,16 @@ namespace _Project.Scripts.Infrastructure
 {
     public class ProjectInstaller : MonoInstaller
     {
-        [SerializeField] private Config[] _configs;
+        [SerializeField] private KeyBindingsConfig _keyBindingsConfig;
+        [SerializeField] private PlayerConfig _playerConfig;
 
         public override void InstallBindings()
         {
-            Container.Bind<IEnumerable<Config>>()
-                .FromInstance(_configs)
+            Container.Bind<KeyBindingsConfig>()
+                .FromInstance(_keyBindingsConfig)
+                .AsSingle();
+            Container.Bind<PlayerConfig>()
+                .FromInstance(_playerConfig)
                 .AsSingle();
         }
     }

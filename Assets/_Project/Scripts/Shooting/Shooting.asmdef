@@ -1,7 +1,7 @@
 {
     "name": "Shooting",
     "rootNamespace": "",
-    "references": [],
+    "references": ["GUID:633867dca3bed234fa8bb747586d6330","GUID:b8b9cd9a20ae9a348960bcb88f257e8b"],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

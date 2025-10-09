@@ -14,7 +14,7 @@ namespace _Project.Scripts.Input
 
         public Vector2 GetMovement()
         {
-            return new Vector2(UnityEngine.Input.GetAxisRaw("Horizontal"), UnityEngine.Input.GetAxisRaw("Vertical"));
+            return new Vector2(UnityEngine.Input.GetAxis("Horizontal"), UnityEngine.Input.GetAxis("Vertical"));
         }
 
         public bool IsShooting()

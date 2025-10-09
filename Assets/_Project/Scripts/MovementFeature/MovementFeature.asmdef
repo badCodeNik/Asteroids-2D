@@ -1,7 +1,11 @@
 {
     "name": "MovementFeature",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "Player",
+        "Input",
+        "Configs"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

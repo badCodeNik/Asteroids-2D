@@ -5,10 +5,10 @@ namespace _Project.Scripts.Input
 {
     public class InputInstaller : MonoInstaller
     {
+        [Inject] private ResourceLoadingService _resourceLoadingService;
         public override void InstallBindings()
         {
-            var resourceLoadingService = Container.Resolve<ResourceLoadingService>();
-            var joystick = resourceLoadingService.Load<Joystick>("UI/Joystick");
+            var joystick = _resourceLoadingService.Load<Joystick>("UI/Joystick");
             Container.BindInstance(joystick).AsSingle();
             Container.BindInterfacesAndSelfTo<InputService>().AsSingle();
         }
