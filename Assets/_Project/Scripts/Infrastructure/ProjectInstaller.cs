@@ -12,6 +12,7 @@ namespace _Project.Scripts.Infrastructure
 
         public override void InstallBindings()
         {
+            SignalBusInstaller.Install(Container);
             Container.Bind<KeyBindingsConfig>()
                 .FromInstance(_keyBindingsConfig)
                 .AsSingle();

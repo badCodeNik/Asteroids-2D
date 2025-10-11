@@ -4,7 +4,9 @@
     "references": [
         "Player",
         "Input",
-        "Configs"
+        "Configs",
+        "Zenject",
+        "Services"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

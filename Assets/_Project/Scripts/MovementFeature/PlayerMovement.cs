@@ -1,33 +1,65 @@
+using System;
 using _Project.Scripts.Configs;
 using _Project.Scripts.Input;
 using _Project.Scripts.Player;
+using _Project.Scripts.Services;
 using UnityEngine;
+using UnityEngine.UIElements;
 using Zenject;
 
 namespace _Project.Scripts.MovementFeature
 {
-    public class PlayerMovement : ITickable
+    public class PlayerMovement : ITickable, IInitializable
     {
         private readonly InputService _inputService;
         private readonly PlayerConfig _playerConfig;
-        private readonly PlayerView _playerView;
+        private readonly SignalBus _signalBus;
+        private PlayerView _playerView;
         private Vector2 _velocity;
+        private float _desiredAngle;
+        private float _currentSpeed;
 
-        public PlayerMovement(InputService inputService, PlayerConfig playerConfig, PlayerView playerView)
+        public PlayerMovement(InputService inputService, PlayerConfig playerConfig, SignalBus signalBus)
         {
             _inputService = inputService;
             _playerConfig = playerConfig;
-            _playerView = playerView;
+            _signalBus = signalBus;
         }
 
         public void Tick()
         {
-            _velocity += _playerConfig.Acceleration * _inputService.MoveInput * Time.deltaTime;
-            _velocity *= _playerConfig.Drag;
-            if(_velocity.magnitude > _playerConfig.MaxSpeed)
-                _velocity = _velocity.normalized * _playerConfig.MaxSpeed;
+            if (!_playerView) return;
+            HandleMovement();
+            HandleRotation();
+        }
 
-            _playerView.transform.position += (Vector3)_velocity * Time.deltaTime;
+        private void HandleRotation()
+        {
+            _desiredAngle += (-_inputService.MoveInput.x * _playerConfig.RotationSpeed * Time.deltaTime);
+            _playerView.transform.rotation = Quaternion.Euler(0, 0, _desiredAngle);
+        }
+
+        private void HandleMovement()
+        {
+            _currentSpeed += _playerConfig.Acceleration * _inputService.MoveInput.y * Time.deltaTime;
+            _currentSpeed *= _playerConfig.Drag;
+
+            if (_currentSpeed > _playerConfig.MaxSpeed)
+                _currentSpeed = _playerConfig.MaxSpeed;
+            else if (_currentSpeed < -_playerConfig.MaxSpeed)
+                _currentSpeed = -_playerConfig.MaxSpeed;
+            
+            _playerView.transform.position += _playerView.transform.up * _currentSpeed * Time.deltaTime;
+        }
+
+        public void Initialize()
+        {
+            _signalBus.Subscribe<Signals.PlayerSpawnedSignal>(SetPlayer);
+        }
+
+        private void SetPlayer(Signals.PlayerSpawnedSignal signal)
+        {
+            _playerView = signal.PlayerView;
         }
     }
 }

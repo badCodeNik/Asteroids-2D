@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: PlayerConfig
   m_EditorClassIdentifier: 
   Acceleration: 100
-  RotationSpeed: 0
+  RotationSpeed: 10
   Drag: 0.98
   MaxSpeed: 100

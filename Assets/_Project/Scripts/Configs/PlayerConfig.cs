@@ -3,7 +3,7 @@ using UnityEngine;
 namespace _Project.Scripts.Configs
 {
     [CreateAssetMenu(fileName = "PlayerConfig", menuName = "Configs/PlayerConfig")]
-    public class PlayerConfig : Config
+    public class PlayerConfig : ScriptableObject
     {
         public float Acceleration = 5;
         public float RotationSpeed;
