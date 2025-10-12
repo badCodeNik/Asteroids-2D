@@ -1,7 +1,15 @@
 {
     "name": "Enemy",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "Services",
+        "Configs",
+        "UniTask",
+        "Zenject",
+        "MovementFeature",
+        "World",
+        "Health"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

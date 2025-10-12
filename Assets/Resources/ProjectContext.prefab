@@ -78,6 +78,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _keyBindingsConfig: {fileID: 11400000, guid: 98d51ecf3a68a8043ab3591c690bf6e4, type: 2}
   _playerConfig: {fileID: 11400000, guid: ecf2de464caceb145a569b1abe869cd2, type: 2}
+  _worldConfig: {fileID: 11400000, guid: 8ef923b4863cabc469ae367dca47a55c, type: 2}
+  _enemyConfig: {fileID: 11400000, guid: 071b6ce04ee56234393932e44eedecd9, type: 2}
+  _bulletConfig: {fileID: 11400000, guid: 3de2533bdd20eaf46b74ff75f4b49517, type: 2}
 --- !u!114 &5868348815324899558
 MonoBehaviour:
   m_ObjectHideFlags: 0

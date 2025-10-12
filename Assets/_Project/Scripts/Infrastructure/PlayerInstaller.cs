@@ -1,5 +1,7 @@
 using _Project.Scripts.MovementFeature;
+using _Project.Scripts.Player;
 using _Project.Scripts.Services;
+using _Project.Scripts.Shooting;
 using Zenject;
 
 namespace _Project.Scripts.Infrastructure
@@ -14,6 +16,8 @@ namespace _Project.Scripts.Infrastructure
             
             Container.BindInterfacesAndSelfTo<PlayerFactory>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<PlayerMovement>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<BulletSpawner>().AsSingle();
+            Container.BindInterfacesAndSelfTo<ShootFeature>().AsSingle().NonLazy();
         }
     }
 }

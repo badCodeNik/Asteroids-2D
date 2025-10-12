@@ -1,10 +1,16 @@
 using _Project.Scripts.Services;
+using _Project.Scripts.World;
 using Zenject;
 
-public class ServicesInstaller : MonoInstaller
+namespace _Project.Scripts.Infrastructure
 {
-    public override void InstallBindings()
+    public class ServicesInstaller : MonoInstaller
     {
-        Container.Bind<ResourceLoadingService>().AsSingle();
+        public override void InstallBindings()
+        {
+            Container.Bind<TimerService>().AsTransient();
+            Container.Bind<ResourceLoadingService>().AsSingle();
+            Container.Bind<WorldBoundsService>().AsSingle();
+        }
     }
 }

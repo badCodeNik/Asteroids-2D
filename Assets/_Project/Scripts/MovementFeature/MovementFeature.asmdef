@@ -6,7 +6,8 @@
         "Input",
         "Configs",
         "Zenject",
-        "Services"
+        "Services",
+        "World"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -183,7 +183,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 1
+  orthographic: 0
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
@@ -209,13 +209,13 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -50}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1241489009
+--- !u!1 &1162830441
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -223,37 +223,24 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1241489011}
-  - component: {fileID: 1241489010}
+  - component: {fileID: 1162830442}
   m_Layer: 0
-  m_Name: GameBootstrapper
+  m_Name: --WORLD--
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1241489010
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1241489009}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0e1fbb73f2947b0b622a5d0715cb1e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1241489011
+--- !u!4 &1162830442
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1241489009}
+  m_GameObject: {fileID: 1162830441}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.007337, y: 4.645498, z: -0.024754912}
+  m_LocalPosition: {x: -17.056828, y: 10.057081, z: -0.50706375}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -271,6 +258,7 @@ GameObject:
   - component: {fileID: 1484939741}
   - component: {fileID: 1484939740}
   - component: {fileID: 1484939743}
+  - component: {fileID: 1484939744}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -306,6 +294,7 @@ MonoBehaviour:
   _monoInstallers:
   - {fileID: 1484939740}
   - {fileID: 1484939743}
+  - {fileID: 1484939744}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -350,10 +339,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f89cd81f6ba84fed86ac9743fc5e2c2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1484939744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1484939739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8645b395080c43bfa8b5f3f4bca14334, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 519420032}
   - {fileID: 1484939742}
-  - {fileID: 1241489011}
+  - {fileID: 1162830442}

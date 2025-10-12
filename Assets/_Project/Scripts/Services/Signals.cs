@@ -1,4 +1,4 @@
-using _Project.Scripts.Player;
+using UnityEngine;
 
 namespace _Project.Scripts.Services
 {
@@ -6,9 +6,9 @@ namespace _Project.Scripts.Services
     {
         public class PlayerSpawnedSignal
         {
-            public PlayerView PlayerView { get; }
+            public Transform PlayerView { get; }
 
-            public PlayerSpawnedSignal(PlayerView playerView)
+            public PlayerSpawnedSignal(Transform playerView)
             {
                 PlayerView = playerView;
             }

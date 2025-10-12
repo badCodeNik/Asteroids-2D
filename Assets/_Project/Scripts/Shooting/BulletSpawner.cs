@@ -1,0 +1,51 @@
+using System.Collections.Generic;
+using _Project.Scripts.Configs;
+using _Project.Scripts.MovementFeature;
+using _Project.Scripts.Player;
+using _Project.Scripts.Services;
+using UnityEngine;
+using Zenject;
+
+namespace _Project.Scripts.Shooting
+{
+    public class BulletSpawner
+    {
+        private Transform _container;
+        private readonly StrategyMoveAgent _moveAgent;
+        private readonly BulletConfig _bulletConfig;
+        private readonly Bullet _bulletPrefab;
+        private readonly ObjectPool<Bullet> _bullets;
+        
+        public BulletSpawner(ResourceLoadingService resourceLoadingService, BulletConfig bulletConfig, StrategyMoveAgent moveAgent, SignalBus signalBus)
+        {
+            _bulletConfig = bulletConfig;
+            _moveAgent = moveAgent;
+            _bulletPrefab = resourceLoadingService.Load<Bullet>("Bullet");
+            _bullets = new ObjectPool<Bullet>(_bulletPrefab);
+            signalBus.Subscribe<Signals.PlayerSpawnedSignal>(SetPlayer);
+        }
+
+        private void SetPlayer(Signals.PlayerSpawnedSignal signal)
+        {
+            _container = signal.PlayerView.GetComponent<PlayerView>().BulletContainer;
+        }
+
+        public Bullet SpawnBullet(Transform point)
+        {
+            var bullet = _bullets.Get(point.position);
+            var strategy = new StraightMoveStrategy(_bulletConfig.Speed, point.up);
+            _moveAgent.AddMoveSubject(bullet.gameObject, strategy);
+            bullet.OnBulletDestroyRequested += RecycleBullet;
+            return bullet;
+        }
+
+
+        private void RecycleBullet(Bullet bullet)
+        {
+            bullet.OnBulletDestroyRequested -= RecycleBullet;
+            bullet.transform.rotation = Quaternion.identity;
+            _moveAgent.RemoveMoveSubject(bullet.gameObject);
+            _bullets.Release(bullet);
+        }
+    }
+}
