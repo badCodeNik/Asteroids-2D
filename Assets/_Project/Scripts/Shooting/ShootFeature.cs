@@ -10,11 +10,13 @@ namespace _Project.Scripts.Shooting
     {
         private PlayerView _playerView;
         private readonly BulletSpawner _bulletSpawner;
+        private readonly LaserSpawner _laserSpawner;
         private readonly WorldBoundsService _worldBoundsService;
 
-        public ShootFeature(InputService inputService, BulletSpawner bulletSpawner, WorldBoundsService worldBoundsService, SignalBus signalBus)
+        public ShootFeature(InputService inputService, BulletSpawner bulletSpawner,LaserSpawner laserSpawner, WorldBoundsService worldBoundsService, SignalBus signalBus)
         {
             _bulletSpawner = bulletSpawner;
+            _laserSpawner = laserSpawner;
             _worldBoundsService = worldBoundsService;
             inputService.OnShoot += ShootBullet;
             inputService.OnShootLaser += ShootLaser;
@@ -28,7 +30,7 @@ namespace _Project.Scripts.Shooting
 
         private void ShootLaser()
         {
-            
+            _laserSpawner.ShootLaser(_playerView.ShootPoint.position, _playerView.ShootPoint.up);
         }
 
         private void ShootBullet()

@@ -13,11 +13,17 @@ namespace _Project.Scripts.Input
         public Vector2 MoveInput { get; private set; }
         public event Action OnShoot;
         public event Action OnShootLaser;
+        private bool _isEnabled = true;
 
         public InputService(Joystick joystick, KeyBindingsConfig keyBindingsConfig)
         {
             _joystick = joystick;
             _keyBindingsConfig = keyBindingsConfig;
+        }
+
+        public void ToggleInput(bool isEnabled)
+        {
+            _isEnabled = isEnabled;
         }
 
         public void Initialize()
@@ -30,6 +36,7 @@ namespace _Project.Scripts.Input
 
         public void Tick()
         {
+            if (!_isEnabled) return;
             MoveInput = _inputHandler.GetMovement();
             if (_inputHandler.IsShooting()) OnShoot?.Invoke();
             if (_inputHandler.IsShootingLaser()) OnShootLaser?.Invoke();

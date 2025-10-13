@@ -8,7 +8,7 @@ namespace _Project.Scripts.Enemy
     {
         public event Action<AsteroidParticleView> OnAsteroidParticleShot;
 
-        public void TakeDamage()
+        public void TakeDamage(bool destroyImmediately = false)
         {
             OnAsteroidParticleShot?.Invoke(this);
         }

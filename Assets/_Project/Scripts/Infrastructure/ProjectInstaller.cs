@@ -12,6 +12,7 @@ namespace _Project.Scripts.Infrastructure
         [SerializeField] private WorldConfig _worldConfig;
         [SerializeField] private EnemyConfig _enemyConfig;
         [SerializeField] private BulletConfig _bulletConfig;
+        [SerializeField] private LaserConfig _laserConfig;
 
         public override void InstallBindings()
         {
@@ -34,6 +35,10 @@ namespace _Project.Scripts.Infrastructure
             
             Container.Bind<BulletConfig>()
                 .FromInstance(_bulletConfig)
+                .AsSingle();
+            
+            Container.Bind<LaserConfig>()
+                .FromInstance(_laserConfig)
                 .AsSingle();
             
             Container.BindInterfacesAndSelfTo<StrategyMoveAgent>().AsSingle();

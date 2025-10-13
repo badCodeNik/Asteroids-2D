@@ -21,8 +21,10 @@ namespace _Project.Scripts.Enemy
         private CancellationTokenSource _cts = new();
         private Transform _target;
 
-        public EnemySpawner(EnemyConfig enemyConfig, AsteroidFactory asteroidFactory, AsteroidParticleFactory asteroidParticleFactory,
-            FlyingPlateFactory flyingPlateFactory, TimerService timerService, StrategyMoveAgent moveAgent, SignalBus signalBus)
+        public EnemySpawner(EnemyConfig enemyConfig, AsteroidFactory asteroidFactory,
+            AsteroidParticleFactory asteroidParticleFactory,
+            FlyingPlateFactory flyingPlateFactory, TimerService timerService, StrategyMoveAgent moveAgent,
+            SignalBus signalBus)
         {
             _enemyConfig = enemyConfig;
             _asteroidFactory = asteroidFactory;
@@ -48,28 +50,44 @@ namespace _Project.Scripts.Enemy
         private void SpawnFlyingPlate()
         {
             var flyingPlate = _flyingPlateFactory.Create();
-            _moveAgent.AddMoveSubject(flyingPlate.gameObject, new FollowPlayerMoveStrategy(_target, _enemyConfig.FlyingPlateSpeed), _target);
+            flyingPlate.OnFlyingPlateShot += DestroyPlate;
+            _moveAgent.AddMoveSubject(flyingPlate.gameObject,
+                new FollowPlayerMoveStrategy(_target, _enemyConfig.FlyingPlateSpeed), _target);
+        }
+
+        private void DestroyPlate(FlyingPlateView plate)
+        {
+            _flyingPlateFactory.Release(plate);
+            _moveAgent.RemoveMoveSubject(plate.gameObject);
         }
 
         private void SpawnAsteroid()
         {
             var asteroid = _asteroidFactory.Create();
-            asteroid.OnAsteroidShot += DestroyAsteroid;
-            _moveAgent.AddMoveSubject(asteroid.gameObject, new StraightMoveStrategy(_enemyConfig.AsteroidSpeed, asteroid.Direction.normalized));
+            asteroid.OnAsteroidShot += SplitAsteroid;
+            asteroid.OnAsteroidDestroyed += DestroyAsteroid;
+            _moveAgent.AddMoveSubject(asteroid.gameObject,
+                new StraightMoveStrategy(_enemyConfig.AsteroidSpeed, asteroid.Direction.normalized));
         }
 
         private void DestroyAsteroid(AsteroidView asteroid)
         {
             _moveAgent.RemoveMoveSubject(asteroid.gameObject);
-            for(int i = 0; i < _enemyConfig.AsteroidParticleCount; i++)
+            _asteroidFactory.Release(asteroid);
+        }
+
+        private void SplitAsteroid(AsteroidView asteroid)
+        {
+            for (int i = 0; i < _enemyConfig.AsteroidParticleCount; i++)
             {
                 var particle = _asteroidParticleFactory.Create();
                 particle.transform.position = asteroid.transform.position;
                 Vector2 randomDirection = Random.insideUnitCircle.normalized;
-                _moveAgent.AddMoveSubject(particle.gameObject, new StraightMoveStrategy(_enemyConfig.AsteroidParticleSpeed, randomDirection));
+                _moveAgent.AddMoveSubject(particle.gameObject,
+                    new StraightMoveStrategy(_enemyConfig.AsteroidParticleSpeed, randomDirection));
             }
 
-            _asteroidFactory.Release(asteroid);
+            DestroyAsteroid(asteroid);
         }
 
         public void Dispose()

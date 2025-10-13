@@ -24,11 +24,10 @@ namespace _Project.Scripts.Services
         {
             Vector2 spawnPos = _worldBounds.GetRandomOutOfWorldPosition();
             var instance = Pool.Get(spawnPos);
-            instance.OnFlyingPlateShot += Release;
             return instance;
         }
 
-        private void Release(FlyingPlateView plate)
+        public void Release(FlyingPlateView plate)
         {
             Pool.Release(plate);
         }

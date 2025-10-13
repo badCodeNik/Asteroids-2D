@@ -6,6 +6,7 @@ namespace _Project.Scripts.Enemy
 {
     public class AsteroidView : MonoBehaviour, IDamageable
     {
+        public event Action<AsteroidView> OnAsteroidDestroyed;
         public event Action<AsteroidView> OnAsteroidShot;
         public Vector2 Direction { get; private set; }
 
@@ -14,9 +15,10 @@ namespace _Project.Scripts.Enemy
             Direction = direction;
         }
 
-        public void TakeDamage()
+        public void TakeDamage(bool destroyImmediately = false)
         {
-            OnAsteroidShot?.Invoke(this);
+            if (destroyImmediately) OnAsteroidDestroyed?.Invoke(this);
+            else OnAsteroidShot?.Invoke(this);
         }
     }
 }

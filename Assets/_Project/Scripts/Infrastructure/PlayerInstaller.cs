@@ -17,6 +17,7 @@ namespace _Project.Scripts.Infrastructure
             Container.BindInterfacesAndSelfTo<PlayerFactory>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<PlayerMovement>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<BulletSpawner>().AsSingle();
+            Container.BindInterfacesAndSelfTo<LaserSpawner>().AsSingle();
             Container.BindInterfacesAndSelfTo<ShootFeature>().AsSingle().NonLazy();
         }
     }

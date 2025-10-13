@@ -26,5 +26,6 @@ namespace _Project.Scripts.Input
         {
             return UnityEngine.Input.GetKeyDown(_keyBindingsConfig.ShootLaser);
         }
+
     }
 }
