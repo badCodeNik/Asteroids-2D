@@ -16,6 +16,8 @@ MonoBehaviour:
   SpawnDelay: 1
   MaxEnemies: 10
   FlyingPlateSpeed: 7.98
+  FlyingPlateAcceleration: 10
+  FlyingPlateMaxSpeed: 20
   AsteroidSpeed: 5
   WorldSpawnOffset: 50
   AsteroidParticleCount: 3

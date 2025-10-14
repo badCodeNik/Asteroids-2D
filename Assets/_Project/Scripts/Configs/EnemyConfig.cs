@@ -9,6 +9,8 @@ namespace _Project.Scripts.Configs
         public float SpawnDelay;
         public int MaxEnemies;
         public float FlyingPlateSpeed;
+        public float FlyingPlateAcceleration;
+        public float FlyingPlateMaxSpeed;
         public float AsteroidSpeed;
         public float WorldSpawnOffset;
         public int AsteroidParticleCount;

@@ -181,6 +181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1b9dee7bd96424f85fd92b0f58629e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _collisionRadius: 0.3
   _shootPoint: {fileID: 4952696070602955223}
   _bulletContainer: {fileID: 4560648273097284441}
 --- !u!50 &-750322927173330499

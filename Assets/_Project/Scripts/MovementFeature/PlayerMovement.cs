@@ -35,26 +35,40 @@ namespace _Project.Scripts.MovementFeature
             HandleMovement();
             HandleRotation();
 
+            ApplyVelocity();
+
             _playerView.transform.position = _worldBoundsService.WrapPosition(_playerView.transform.position);
+        }
+
+        private void ApplyVelocity()
+        {
+            _playerView.Position += _playerView.TotalVelocity * Time.deltaTime;
         }
 
         private void HandleRotation()
         {
             _desiredAngle += (-_inputService.MoveInput.x * _playerConfig.RotationSpeed * Time.deltaTime);
-            _playerView.transform.rotation = Quaternion.Euler(0, 0, _desiredAngle);
+            _playerView.Rotation = _desiredAngle;
         }
 
         private void HandleMovement()
         {
-            _currentSpeed += _playerConfig.Acceleration * _inputService.MoveInput.y * Time.deltaTime;
-            _currentSpeed *= _playerConfig.Drag;
+            Vector2 input = _inputService.MoveInput;
 
-            if (_currentSpeed > _playerConfig.MaxSpeed)
-                _currentSpeed = _playerConfig.MaxSpeed;
-            else if (_currentSpeed < -_playerConfig.MaxSpeed)
-                _currentSpeed = -_playerConfig.MaxSpeed;
+            if (input.y != 0)
+            {
+                Vector2 forward = _playerView.transform.up;
+                Vector2 acceleration = forward * (_playerConfig.Acceleration * input.y * Time.deltaTime);
+                
+                _playerView.Velocity += acceleration;
+            }
 
-            _playerView.transform.position += _playerView.transform.up * _currentSpeed * Time.deltaTime;
+            _playerView.Velocity *= (1f - _playerConfig.Drag * Time.deltaTime);
+
+            if (_playerView.Velocity.magnitude > _playerConfig.MaxSpeed)
+            {
+                _playerView.Velocity = _playerView.Velocity.normalized * _playerConfig.MaxSpeed;
+            }
         }
 
 

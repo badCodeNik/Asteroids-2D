@@ -1,9 +1,10 @@
+using _Project.Scripts.Physics;
 using UnityEngine;
 
 namespace _Project.Scripts.MovementFeature
 {
     public interface IMoveStrategy
     {
-        void Move(GameObject gameObject);
+        void Move(PhysicsBody body);
     }
 }

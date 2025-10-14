@@ -34,7 +34,7 @@ namespace _Project.Scripts.Shooting
         {
             var bullet = _bullets.Get(point.position);
             var strategy = new StraightMoveStrategy(_bulletConfig.Speed, point.up);
-            _moveAgent.AddMoveSubject(bullet.gameObject, strategy);
+            _moveAgent.AddMoveSubject(bullet, strategy);
             bullet.OnBulletDestroyRequested += RecycleBullet;
             return bullet;
         }
@@ -44,7 +44,7 @@ namespace _Project.Scripts.Shooting
         {
             bullet.OnBulletDestroyRequested -= RecycleBullet;
             bullet.transform.rotation = Quaternion.identity;
-            _moveAgent.RemoveMoveSubject(bullet.gameObject);
+            _moveAgent.RemoveMoveSubject(bullet);
             _bullets.Release(bullet);
         }
     }
