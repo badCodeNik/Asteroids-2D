@@ -10,5 +10,9 @@ namespace _Project.Scripts.Configs
         public float Drag = 0.98f;
         public float MaxSpeed = 20;
         
+        [Header("Health")]
+        public int MaxHealth = 3;
+        public float InvulnerabilityTime = 3f;
+        
     }
 }

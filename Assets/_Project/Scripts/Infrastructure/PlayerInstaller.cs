@@ -1,3 +1,4 @@
+using _Project.Scripts.Health;
 using _Project.Scripts.MovementFeature;
 using _Project.Scripts.Player;
 using _Project.Scripts.Services;
@@ -14,6 +15,7 @@ namespace _Project.Scripts.Infrastructure
         {
             Container.DeclareSignal<Signals.PlayerSpawnedSignal>();
             
+            Container.BindInterfacesAndSelfTo<PlayerHealthSystem>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<PlayerFactory>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<PlayerMovement>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<BulletSpawner>().AsSingle();

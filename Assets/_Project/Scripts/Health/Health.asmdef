@@ -1,14 +1,22 @@
 {
-    "name": "Health",
-    "rootNamespace": "",
-    "references": [],
-    "includePlatforms": [],
-    "excludePlatforms": [],
-    "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true,
-    "defineConstraints": [],
-    "versionDefines": [],
-    "noEngineReferences": false
+  "name": "Health",
+  "rootNamespace": "",
+  "references": [
+    "GUID:b8b9cd9a20ae9a348960bcb88f257e8b",
+    "GUID:0d8beb7f090555447a6cf5ce9e54dbb4",
+    "GUID:e44200466fd31034681d673c1b084fc1",
+    "GUID:6d962cd448baadf4d89ca5bfa070d8b4",
+    "Input",
+    "GUID:f51ebe6a0ceec4240a699833d6309b23",
+    "GUID:a1d0e2be589efff41bc3d498250f021c"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
 }

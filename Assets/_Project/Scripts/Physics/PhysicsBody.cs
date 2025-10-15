@@ -9,10 +9,6 @@ namespace _Project.Scripts.Physics
         [SerializeField] private float _collisionRadius;
         [SerializeField] private float _externalVelocityDrag = 0.98f;
 
-        [Inject]
-        public void Construct()
-        {
-        }
 
         public Vector2 Position
         {
@@ -37,10 +33,12 @@ namespace _Project.Scripts.Physics
         private bool _canCollide = true;
         private bool _isInvulnerable;
 
-        public void ApplyForce(Vector2 force)
+        public virtual void ApplyForce(Vector2 force)
         {
             ExternalVelocity += force;
         }
+        
+        public void SetCanCollide(bool canCollide) => _canCollide = canCollide;
 
         private void Update()
         {
