@@ -1,0 +1,14 @@
+{
+    "speed": 0.0,
+    "laserMaxDistance": 0.0,
+    "maxCharges": 0,
+    "rechargeTime": 0.0,
+    "duration": 0.0,
+    "laserColor": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+    },
+    "laserWidth": 0.0
+}

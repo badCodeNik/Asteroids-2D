@@ -4,6 +4,7 @@ using _Project.Scripts.Input;
 using _Project.Scripts.Player;
 using _Project.Scripts.Services;
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 using Zenject;
 
 namespace _Project.Scripts.Health
