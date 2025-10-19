@@ -1,3 +1,4 @@
+using _Project.Scripts.Physics;
 using UnityEngine;
 
 namespace _Project.Scripts.MovementFeature
@@ -6,15 +7,15 @@ namespace _Project.Scripts.MovementFeature
     {
         private readonly float _speed ;
         private readonly Vector3 _direction;
-
+        private readonly float _externalForceThreshold;
         public StraightMoveStrategy(float speed, Vector3 direction)
         {
             _speed = speed;
             _direction = direction;
         }
-        public void Move(GameObject moveSubject)
+        public void Move(PhysicsBody body)
         {
-            moveSubject.transform.Translate(_direction * _speed  * Time.deltaTime);
+            body.Velocity = _direction * _speed;
         }
     }
 }

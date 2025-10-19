@@ -1,3 +1,4 @@
+using _Project.Scripts.Physics;
 using UnityEngine;
 
 namespace _Project.Scripts.MovementFeature
@@ -13,10 +14,13 @@ namespace _Project.Scripts.MovementFeature
             _target = target;
             _speed = speed;
         }
-        public void Move(GameObject moveSubject)
+
+        public void Move(PhysicsBody body)
         {
-            var direction = _target.position - moveSubject.transform.position;
-            moveSubject.transform.position += direction.normalized * _speed * Time.deltaTime;
+            if (_target == null) return;
+
+            Vector2 direction = ((Vector2)_target.position - body.Position).normalized;
+            body.Velocity = direction * _speed ;
         }
     }
 }

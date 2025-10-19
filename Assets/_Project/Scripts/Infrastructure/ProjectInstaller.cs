@@ -1,6 +1,7 @@
 using _Project.Scripts.Configs;
 using _Project.Scripts.MovementFeature;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace _Project.Scripts.Infrastructure
@@ -11,8 +12,7 @@ namespace _Project.Scripts.Infrastructure
         [SerializeField] private PlayerConfig _playerConfig;
         [SerializeField] private WorldConfig _worldConfig;
         [SerializeField] private EnemyConfig _enemyConfig;
-        [SerializeField] private BulletConfig _bulletConfig;
-        [SerializeField] private LaserConfig _laserConfig;
+        [FormerlySerializedAs("_bulletConfig")] [SerializeField] private WeaponConfig _weaponConfig;
 
         public override void InstallBindings()
         {
@@ -33,13 +33,15 @@ namespace _Project.Scripts.Infrastructure
                 .FromInstance(_enemyConfig)
                 .AsSingle();
             
-            Container.Bind<BulletConfig>()
-                .FromInstance(_bulletConfig)
+            Container.Bind<WeaponConfig>()
+                .FromInstance(_weaponConfig)
                 .AsSingle();
+
+            Container.Bind<ConfigLoader>().AsSingle();
             
-            Container.Bind<LaserConfig>()
-                .FromInstance(_laserConfig)
-                .AsSingle();
+            Container.BindInterfacesTo<ConfigProvider>()
+                .AsSingle()
+                .NonLazy();
             
             Container.BindInterfacesAndSelfTo<StrategyMoveAgent>().AsSingle();
         }

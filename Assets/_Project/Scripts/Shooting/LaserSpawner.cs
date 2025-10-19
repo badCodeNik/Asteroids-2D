@@ -10,7 +10,7 @@ namespace _Project.Scripts.Shooting
 {
     public class LaserSpawner : ITickable
     {
-        private readonly LaserConfig _config;
+        private readonly WeaponConfig _config;
         private LaserView _laserPrefab;
         private ObjectPool<LaserView> _laserPool;
         public event Action<int> OnChargesChanged;
@@ -19,7 +19,7 @@ namespace _Project.Scripts.Shooting
 
         private int _charges;
 
-        public LaserSpawner(ResourceLoadingService resourceLoadingService, LaserConfig config)
+        public LaserSpawner(ResourceLoadingService resourceLoadingService, WeaponConfig config)
         {
             _config = config;
             _laserPrefab = resourceLoadingService.Load<LaserView>("Laser");
@@ -38,7 +38,7 @@ namespace _Project.Scripts.Shooting
                 position,
                 direction,
                 _hits,
-                _config.MaxDistance
+                _config.LaserMaxDistance
             );
 
             if (hits > 0)

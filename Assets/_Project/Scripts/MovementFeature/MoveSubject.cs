@@ -1,16 +1,17 @@
+using _Project.Scripts.Physics;
 using UnityEngine;
 
 namespace _Project.Scripts.MovementFeature
 {
     public class MoveSubject
     {
-        public GameObject GameObject;
+        public PhysicsBody Body;
         public IMoveStrategy Strategy;
         public Transform Target;
             
-        public MoveSubject(GameObject gameObject, IMoveStrategy strategy, Transform target = null)
+        public MoveSubject(PhysicsBody body, IMoveStrategy strategy, Transform target = null)
         {
-            GameObject = gameObject;
+            Body = body;
             Strategy = strategy;
             Target = target;
         }

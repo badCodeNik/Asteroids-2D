@@ -12,13 +12,13 @@ namespace _Project.Scripts.Shooting
     {
         private Transform _container;
         private readonly StrategyMoveAgent _moveAgent;
-        private readonly BulletConfig _bulletConfig;
+        private readonly WeaponConfig _weaponConfig;
         private readonly Bullet _bulletPrefab;
         private readonly ObjectPool<Bullet> _bullets;
         
-        public BulletSpawner(ResourceLoadingService resourceLoadingService, BulletConfig bulletConfig, StrategyMoveAgent moveAgent, SignalBus signalBus)
+        public BulletSpawner(ResourceLoadingService resourceLoadingService, WeaponConfig weaponConfig, StrategyMoveAgent moveAgent, SignalBus signalBus)
         {
-            _bulletConfig = bulletConfig;
+            _weaponConfig = weaponConfig;
             _moveAgent = moveAgent;
             _bulletPrefab = resourceLoadingService.Load<Bullet>("Bullet");
             _bullets = new ObjectPool<Bullet>(_bulletPrefab);
@@ -33,8 +33,8 @@ namespace _Project.Scripts.Shooting
         public Bullet SpawnBullet(Transform point)
         {
             var bullet = _bullets.Get(point.position);
-            var strategy = new StraightMoveStrategy(_bulletConfig.Speed, point.up);
-            _moveAgent.AddMoveSubject(bullet.gameObject, strategy);
+            var strategy = new StraightMoveStrategy(_weaponConfig.Speed, point.up);
+            _moveAgent.AddMoveSubject(bullet, strategy);
             bullet.OnBulletDestroyRequested += RecycleBullet;
             return bullet;
         }
@@ -44,7 +44,7 @@ namespace _Project.Scripts.Shooting
         {
             bullet.OnBulletDestroyRequested -= RecycleBullet;
             bullet.transform.rotation = Quaternion.identity;
-            _moveAgent.RemoveMoveSubject(bullet.gameObject);
+            _moveAgent.RemoveMoveSubject(bullet);
             _bullets.Release(bullet);
         }
     }

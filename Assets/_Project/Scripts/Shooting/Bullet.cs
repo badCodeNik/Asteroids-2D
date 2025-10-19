@@ -1,11 +1,12 @@
 using System;
 using _Project.Scripts.Health;
+using _Project.Scripts.Physics;
 using _Project.Scripts.World;
 using UnityEngine;
 
 namespace _Project.Scripts.Shooting
 {
-    public class Bullet : MonoBehaviour
+    public class Bullet : PhysicsBody
     {
         private WorldBoundsService _worldBoundsService;
         public event Action<Bullet> OnBulletDestroyRequested;

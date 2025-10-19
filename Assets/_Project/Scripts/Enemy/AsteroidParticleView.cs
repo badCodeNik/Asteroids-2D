@@ -1,10 +1,10 @@
 using System;
 using _Project.Scripts.Health;
-using UnityEngine;
+using _Project.Scripts.Physics;
 
 namespace _Project.Scripts.Enemy
 {
-    public class AsteroidParticleView : MonoBehaviour, IDamageable
+    public class AsteroidParticleView : PhysicsBody, IDamageable
     {
         public event Action<AsteroidParticleView> OnAsteroidParticleShot;
 
@@ -12,5 +12,7 @@ namespace _Project.Scripts.Enemy
         {
             OnAsteroidParticleShot?.Invoke(this);
         }
+
+        public override PhysicsBodyType BodyType => PhysicsBodyType.AsteroidFragment;
     }
 }

@@ -16,9 +16,9 @@ namespace _Project.Scripts.Shooting
             _lineRenderer.enabled = false;
         }
 
-        public void Initialize(LaserConfig config)
+        public void Initialize(WeaponConfig config)
         {
-            _maxDistance = config.MaxDistance;
+            _maxDistance = config.LaserMaxDistance;
             _lineRenderer.startColor = config.LaserColor;
             _lineRenderer.endColor = config.LaserColor;
             _lineRenderer.startWidth = config.LaserWidth;

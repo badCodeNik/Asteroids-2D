@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1af3b1738464089883bf270f1048210, type: 3}
   m_Name: EnemyConfig
   m_EditorClassIdentifier: 
-  SpawnRate: 4
-  SpawnDelay: 1
-  MaxEnemies: 10
-  FlyingPlateSpeed: 7.98
-  AsteroidSpeed: 5
-  WorldSpawnOffset: 50
+  SpawnRate: 3
+  SpawnDelay: 2
+  FlyingPlateSpeed: 10
+  AsteroidSpeed: 3
+  WorldSpawnOffset: 30
   AsteroidParticleCount: 3
-  AsteroidParticleSpeed: 10
+  AsteroidParticleSpeed: 6

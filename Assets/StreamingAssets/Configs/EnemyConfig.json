@@ -1,0 +1,12 @@
+{
+    "spawnRate": 3.0,
+    "spawnDelay": 2.0,
+    "maxEnemies": 0,
+    "flyingPlateSpeed": 10.0,
+    "flyingPlateAcceleration": 0.0,
+    "flyingPlateMaxSpeed": 0.0,
+    "asteroidSpeed": 3.0,
+    "worldSpawnOffset": 30.0,
+    "asteroidParticleCount": 3,
+    "asteroidParticleSpeed": 6.0
+}

@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using _Project.Scripts.Physics;
+using _Project.Scripts.World;
 using UnityEngine;
 using Zenject;
 
@@ -6,11 +8,17 @@ namespace _Project.Scripts.MovementFeature
 {
     public class StrategyMoveAgent : ITickable
     {
+        private readonly WorldBoundsService _worldBoundsService;
         private List<MoveSubject> _moveSubjects = new();
-        
-        public void AddMoveSubject(GameObject moveSubject, IMoveStrategy moveStrategy, Transform target = null)
+
+        public StrategyMoveAgent(WorldBoundsService worldBoundsService)
         {
-            _moveSubjects.Add(new MoveSubject(moveSubject, moveStrategy, target));
+            _worldBoundsService = worldBoundsService;
+        }
+        
+        public void AddMoveSubject(PhysicsBody body, IMoveStrategy moveStrategy, Transform target = null)
+        {
+            _moveSubjects.Add(new MoveSubject(body, moveStrategy, target));
         }
 
 
@@ -19,13 +27,15 @@ namespace _Project.Scripts.MovementFeature
             foreach (var moveSubject in _moveSubjects)
             {
                 if(moveSubject == null) continue;
-                moveSubject.Strategy.Move(moveSubject.GameObject);
+                moveSubject.Strategy.Move(moveSubject.Body);
+                moveSubject.Body.Position += moveSubject.Body.TotalVelocity * Time.deltaTime;
+                moveSubject.Body.Position = _worldBoundsService.WrapPosition(moveSubject.Body.Position);
             }
         }
 
-        public void RemoveMoveSubject(GameObject moveSubject)
+        public void RemoveMoveSubject(PhysicsBody body)
         {
-            _moveSubjects.RemoveAll(x => x.GameObject == moveSubject);
+            _moveSubjects.RemoveAll(x => x.Body == body);
         }
     }
 }

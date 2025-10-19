@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b93544dff6264cfcb702692ee9a78938, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _collisionRadius: 0.21
 --- !u!60 &7992977179566381642
 PolygonCollider2D:
   m_ObjectHideFlags: 0
