@@ -2,7 +2,7 @@
     "spawnRate": 3.0,
     "spawnDelay": 2.0,
     "maxEnemies": 0,
-    "flyingPlateSpeed": 10.0,
+    "flyingPlateSpeed": 5.0,
     "flyingPlateAcceleration": 0.0,
     "flyingPlateMaxSpeed": 0.0,
     "asteroidSpeed": 3.0,

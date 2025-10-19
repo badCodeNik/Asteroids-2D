@@ -13,5 +13,15 @@ namespace _Project.Scripts.Services
                 PlayerView = playerView;
             }
         }
+
+        public class EnemyKilledSignal
+        {
+            public EnemyType Type { get; }
+
+            public EnemyKilledSignal(EnemyType type)
+            {
+                Type = type;
+            }
+        }
     }
 }

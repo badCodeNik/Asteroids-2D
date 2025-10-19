@@ -1,11 +1,12 @@
 using System;
 using _Project.Scripts.Health;
 using _Project.Scripts.Physics;
+using _Project.Scripts.Services;
 using UnityEngine;
 
 namespace _Project.Scripts.Enemy
 {
-    public class AsteroidView : PhysicsBody, IDamageable
+    public class AsteroidView : PhysicsBody, IDamageable, IEnemyType
     {
         public event Action<AsteroidView> OnAsteroidDestroyed;
         public event Action<AsteroidView> OnAsteroidShot;
@@ -23,5 +24,6 @@ namespace _Project.Scripts.Enemy
         }
 
         public override PhysicsBodyType BodyType => PhysicsBodyType.Asteroid;
+        public EnemyType Type => EnemyType.Asteroid;
     }
 }

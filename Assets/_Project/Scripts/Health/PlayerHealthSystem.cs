@@ -3,6 +3,7 @@ using _Project.Scripts.Configs;
 using _Project.Scripts.Input;
 using _Project.Scripts.Player;
 using _Project.Scripts.Services;
+using _Project.Scripts.UI.Models;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;
@@ -13,16 +14,17 @@ namespace _Project.Scripts.Health
     {
         private PlayerConfig _playerConfig;
         private readonly InputService _inputService;
+        private readonly PlayerModel _playerModel;
         private PlayerView _playerView;
         private int _currentHealth;
         private bool _isInvulnerable;
-        private event Action<int> OnHealthChanged;
 
         public bool IsDead => _currentHealth <= 0;
-        public PlayerHealthSystem(SignalBus signalBus,PlayerConfig playerConfig, InputService inputService)
+        public PlayerHealthSystem(SignalBus signalBus,PlayerConfig playerConfig, InputService inputService, PlayerModel playerModel)
         {
             _playerConfig = playerConfig;
             _inputService = inputService;
+            _playerModel = playerModel;
             signalBus.Subscribe<Signals.PlayerSpawnedSignal>(SetPlayer);
         }
 
@@ -37,7 +39,7 @@ namespace _Project.Scripts.Health
             if(_isInvulnerable) return;
             _currentHealth--;
             MakeTemporaryInvulnerable().Forget();
-            OnHealthChanged?.Invoke(_currentHealth);
+            _playerModel.SetHealth(_currentHealth);
         }
 
         private async UniTask MakeTemporaryInvulnerable()

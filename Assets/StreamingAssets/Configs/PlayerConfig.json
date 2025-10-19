@@ -1,8 +1,8 @@
 {
-    "acceleration": 5.0,
-    "rotationSpeed": 10.0,
+    "acceleration": 10.0,
+    "rotationSpeed": 50.0,
     "drag": 0.9800000190734863,
     "maxSpeed": 20.0,
-    "maxHealth": 3,
+    "maxHealth": 4,
     "invulnerabilityTime": 3.0
 }

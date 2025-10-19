@@ -14,6 +14,7 @@ namespace _Project.Scripts.Infrastructure
             Container.Bind<WorldBoundsService>().AsSingle();
             Container.BindInterfacesAndSelfTo<CollisionHandler>().AsSingle();
             Container.BindInterfacesAndSelfTo<CustomPhysicsService>().AsSingle();
+            Container.Bind<RewardGivingService>().AsSingle().NonLazy();
         }
     }
 }

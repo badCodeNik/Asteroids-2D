@@ -46,6 +46,7 @@ namespace _Project.Scripts.Input
 
         public void OnPointerDown(PointerEventData eventData)
         {
+            Debug.Log("OnPointerDown");
             IsPointerDown = true;
             _canvasGroup.alpha = 1f;
 

@@ -20,6 +20,7 @@ namespace _Project.Scripts.Enemy
         private readonly TimerService _timerService;
         private readonly StrategyMoveAgent _moveAgent;
         private readonly ICustomPhysicsService _customPhysics;
+        private readonly SignalBus _signalBus;
         private CancellationTokenSource _cts = new();
         private Transform _target;
 
@@ -36,6 +37,7 @@ namespace _Project.Scripts.Enemy
             _timerService = timerService;
             _moveAgent = moveAgent;
             _customPhysics = customPhysics;
+            _signalBus = signalBus;
             signalBus.Subscribe<Signals.PlayerSpawnedSignal>(SetTarget);
         }
 
@@ -62,6 +64,7 @@ namespace _Project.Scripts.Enemy
 
         private void DestroyPlate(FlyingPlateView plate)
         {
+            _signalBus.Fire(new Signals.EnemyKilledSignal(plate.Type));
             _customPhysics.UnregisterBody(plate);
             _flyingPlateFactory.Release(plate);
             _moveAgent.RemoveMoveSubject(plate);
@@ -79,6 +82,7 @@ namespace _Project.Scripts.Enemy
 
         private void DestroyAsteroid(AsteroidView asteroid)
         {
+            _signalBus.Fire(new Signals.EnemyKilledSignal(asteroid.Type));
             _customPhysics.UnregisterBody(asteroid);
             _moveAgent.RemoveMoveSubject(asteroid);
             _asteroidFactory.Release(asteroid);
@@ -89,6 +93,7 @@ namespace _Project.Scripts.Enemy
             for (int i = 0; i < _enemyConfig.AsteroidParticleCount; i++)
             {
                 var particle = _asteroidParticleFactory.Create();
+                particle.OnAsteroidParticleShot += DestroyParticle;
                 _customPhysics.RegisterBody(particle);
                 particle.transform.position = asteroid.transform.position;
                 Vector2 randomDirection = Random.insideUnitCircle.normalized;
@@ -97,6 +102,14 @@ namespace _Project.Scripts.Enemy
             }
 
             DestroyAsteroid(asteroid);
+        }
+
+        private void DestroyParticle(AsteroidParticleView particle)
+        {
+            _asteroidParticleFactory.Release(particle);
+            _customPhysics.UnregisterBody(particle);
+            _moveAgent.RemoveMoveSubject(particle);
+            _signalBus.Fire(new Signals.EnemyKilledSignal(particle.Type));
         }
 
         public void Dispose()

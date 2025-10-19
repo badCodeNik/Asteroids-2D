@@ -2,6 +2,7 @@ using _Project.Scripts.Configs;
 using _Project.Scripts.Input;
 using _Project.Scripts.Player;
 using _Project.Scripts.Services;
+using _Project.Scripts.UI.Models;
 using _Project.Scripts.World;
 using UnityEngine;
 using Zenject;
@@ -14,18 +15,20 @@ namespace _Project.Scripts.MovementFeature
         private readonly PlayerConfig _playerConfig;
         private readonly SignalBus _signalBus;
         private readonly WorldBoundsService _worldBoundsService;
+        private readonly PlayerModel _playerModel;
         private PlayerView _playerView;
         private Vector2 _velocity;
         private float _desiredAngle;
         private float _currentSpeed;
 
         public PlayerMovement(InputService inputService, PlayerConfig playerConfig, SignalBus signalBus,
-            WorldBoundsService worldBoundsService)
+            WorldBoundsService worldBoundsService, PlayerModel playerModel)
         {
             _inputService = inputService;
             _playerConfig = playerConfig;
             _signalBus = signalBus;
             _worldBoundsService = worldBoundsService;
+            _playerModel = playerModel;
             _signalBus.Subscribe<Signals.PlayerSpawnedSignal>(SetPlayer);
         }
 
@@ -69,6 +72,9 @@ namespace _Project.Scripts.MovementFeature
             {
                 _playerView.Velocity = _playerView.Velocity.normalized * _playerConfig.MaxSpeed;
             }
+            _playerModel.SetCoordinates(_playerView.Position);
+            _playerModel.SetShipAngle(_playerView.Rotation);
+            _playerModel.SetImmediateSpeed((int) _playerView.Velocity.magnitude);
         }
 
 

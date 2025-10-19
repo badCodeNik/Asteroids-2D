@@ -13,8 +13,6 @@ namespace _Project.Scripts.Infrastructure
 
         public override void InstallBindings()
         {
-            Container.DeclareSignal<Signals.PlayerSpawnedSignal>();
-            
             Container.BindInterfacesAndSelfTo<PlayerHealthSystem>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<PlayerFactory>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<PlayerMovement>().AsSingle().NonLazy();

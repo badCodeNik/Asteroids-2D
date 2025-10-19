@@ -29,7 +29,7 @@ namespace _Project.Editor
             _worldConfig =
                 (WorldConfig)EditorGUILayout.ObjectField("World Config", _worldConfig, typeof(WorldConfig), false);
             _weaponConfig =
-                (WeaponConfig)EditorGUILayout.ObjectField("Laser Config", _weaponConfig, typeof(WeaponConfig), false);
+                (WeaponConfig)EditorGUILayout.ObjectField("Weapon Config", _weaponConfig, typeof(WeaponConfig), false);
 
             if (GUILayout.Button("Export All to JSON"))
             {
@@ -51,7 +51,7 @@ namespace _Project.Editor
                 loader.SaveConfig("WorldConfig.json", _worldConfig.ToData());
 
             if (_weaponConfig != null)
-                loader.SaveConfig("LaserConfig.json", _weaponConfig.ToData());
+                loader.SaveConfig("WeaponConfig.json", _weaponConfig.ToData());
 
             Debug.Log("All configs exported to StreamingAssets/Configs/");
             AssetDatabase.Refresh();

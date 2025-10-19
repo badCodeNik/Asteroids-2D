@@ -1,6 +1,7 @@
 using _Project.Scripts.Input;
 using _Project.Scripts.Player;
 using _Project.Scripts.Services;
+using _Project.Scripts.UI.Models;
 using _Project.Scripts.World;
 using Zenject;
 
@@ -12,15 +13,20 @@ namespace _Project.Scripts.Shooting
         private readonly BulletSpawner _bulletSpawner;
         private readonly LaserSpawner _laserSpawner;
         private readonly WorldBoundsService _worldBoundsService;
+        private readonly PlayerModel _playerModel;
 
-        public ShootFeature(InputService inputService, BulletSpawner bulletSpawner,LaserSpawner laserSpawner, WorldBoundsService worldBoundsService, SignalBus signalBus)
+        public ShootFeature(InputService inputService, BulletSpawner bulletSpawner, LaserSpawner laserSpawner,
+            WorldBoundsService worldBoundsService, SignalBus signalBus, PlayerModel playerModel)
         {
             _bulletSpawner = bulletSpawner;
             _laserSpawner = laserSpawner;
             _worldBoundsService = worldBoundsService;
+            _playerModel = playerModel;
             inputService.OnShoot += ShootBullet;
             inputService.OnShootLaser += ShootLaser;
             signalBus.Subscribe<Signals.PlayerSpawnedSignal>(SetPlayer);
+            _laserSpawner.OnChargesChanged += _playerModel.SetLaserAmmo;
+            _laserSpawner.OnRechargeTimerChanged += _playerModel.SetLaserCooldown;
         }
 
         private void SetPlayer(Signals.PlayerSpawnedSignal signal)

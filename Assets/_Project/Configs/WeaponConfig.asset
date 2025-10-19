@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: WeaponConfig
   m_EditorClassIdentifier: 
   Speed: 10
-  LaserMaxDistance: 10
+  LaserMaxDistance: 30
   MaxCharges: 3
-  RechargeTime: 5
-  Duration: 0.5
-  LaserColor: {r: 0.735849, g: 0.14410907, b: 0.044428576, a: 1}
-  LaserWidth: 0.2
+  RechargeTime: 3
+  Duration: 0.3
+  LaserColor: {r: 0, g: 0, b: 0, a: 0}
+  LaserWidth: 1

@@ -1,14 +1,14 @@
 {
     "speed": 10.0,
-    "laserMaxDistance": 10.0,
-    "maxCharges": 3,
+    "laserMaxDistance": 30.0,
+    "maxCharges": 4,
     "rechargeTime": 5.0,
-    "duration": 0.5,
+    "duration": 0.20000000298023225,
     "laserColor": {
-        "r": 0.7358490228652954,
-        "g": 0.1441090703010559,
-        "b": 0.04442857578396797,
-        "a": 1.0
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
     },
-    "laserWidth": 0.20000000298023225
+    "laserWidth": 1.0
 }

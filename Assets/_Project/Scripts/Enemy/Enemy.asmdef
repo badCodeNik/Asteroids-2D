@@ -9,7 +9,8 @@
         "MovementFeature",
         "World",
         "Health",
-        "Physics"
+        "Physics",
+        "Core"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

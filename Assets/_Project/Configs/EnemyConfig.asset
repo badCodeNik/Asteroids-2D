@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpawnRate: 3
   SpawnDelay: 2
-  FlyingPlateSpeed: 10
+  FlyingPlateSpeed: 5
   AsteroidSpeed: 3
   WorldSpawnOffset: 30
   AsteroidParticleCount: 3

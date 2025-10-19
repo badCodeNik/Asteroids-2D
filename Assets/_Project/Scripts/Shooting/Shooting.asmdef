@@ -1,7 +1,7 @@
 {
     "name": "Shooting",
     "rootNamespace": "",
-    "references": ["GUID:633867dca3bed234fa8bb747586d6330","GUID:b8b9cd9a20ae9a348960bcb88f257e8b","GUID:56789f97f6ffcc14180172603832f8e5","GUID:e44200466fd31034681d673c1b084fc1","GUID:1b3a51d2b856d4549a2b39b58fd5213c","GUID:6d962cd448baadf4d89ca5bfa070d8b4","GUID:0d8beb7f090555447a6cf5ce9e54dbb4","GUID:54e0bfeb14497f84ca09ae0bdca685e5","GUID:f51ebe6a0ceec4240a699833d6309b23","GUID:a1d0e2be589efff41bc3d498250f021c"],
+    "references": ["GUID:633867dca3bed234fa8bb747586d6330","GUID:b8b9cd9a20ae9a348960bcb88f257e8b","GUID:56789f97f6ffcc14180172603832f8e5","GUID:e44200466fd31034681d673c1b084fc1","GUID:1b3a51d2b856d4549a2b39b58fd5213c","GUID:6d962cd448baadf4d89ca5bfa070d8b4","GUID:0d8beb7f090555447a6cf5ce9e54dbb4","GUID:54e0bfeb14497f84ca09ae0bdca685e5","GUID:f51ebe6a0ceec4240a699833d6309b23","GUID:a1d0e2be589efff41bc3d498250f021c","GUID:e5c1a2936ac47734c9f231eee147f7f3","GUID:a4b86a561d2c48bcb1a3c2be42bc218a"],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

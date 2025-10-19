@@ -14,6 +14,7 @@ namespace _Project.Scripts.Shooting
         private LaserView _laserPrefab;
         private ObjectPool<LaserView> _laserPool;
         public event Action<int> OnChargesChanged;
+        public event Action<float> OnRechargeTimerChanged;
         private float _rechargeTimer;
         private RaycastHit2D[] _hits = new RaycastHit2D[20];
 
@@ -34,9 +35,14 @@ namespace _Project.Scripts.Shooting
             _charges--;
             OnChargesChanged?.Invoke(_charges);
 
-            var hits = Physics2D.RaycastNonAlloc(
+            Vector2 boxSize = new Vector2(_config.LaserWidth, _config.LaserWidth);
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+            var hits = Physics2D.BoxCastNonAlloc(
                 position,
-                direction,
+                boxSize,
+                angle,
+                direction.normalized,
                 _hits,
                 _config.LaserMaxDistance
             );
@@ -46,8 +52,10 @@ namespace _Project.Scripts.Shooting
                 for (int i = 0; i < hits; i++)
                 {
                     var hit = _hits[i];
-                    if (hit.collider.TryGetComponent<IDamageable>(out var damageable))
+                    if (hit.collider != null && hit.collider.TryGetComponent<IDamageable>(out var damageable))
+                    {
                         damageable.TakeDamage(true);
+                    }
                 }
             }
 
@@ -58,15 +66,16 @@ namespace _Project.Scripts.Shooting
             laserView.Hide();
             _laserPool.Release(laserView);
         }
-
         public void Tick()
         {
             if (_charges < _config.MaxCharges)
             {
                 _rechargeTimer -= Time.deltaTime;
+                OnRechargeTimerChanged?.Invoke(_rechargeTimer);
                 if (_rechargeTimer <= 0)
                 {
                     _charges++;
+                    OnChargesChanged?.Invoke(_charges);
                     _rechargeTimer = _config.RechargeTime;
                 }
             }

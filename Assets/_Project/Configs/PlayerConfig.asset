@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 915d3f16079541a48d6485582b3a7df2, type: 3}
   m_Name: PlayerConfig
   m_EditorClassIdentifier: 
-  Acceleration: 5
-  RotationSpeed: 10
+  Acceleration: 10
+  RotationSpeed: 50
   Drag: 0.98
   MaxSpeed: 20
-  MaxHealth: 3
+  MaxHealth: 4
   InvulnerabilityTime: 3

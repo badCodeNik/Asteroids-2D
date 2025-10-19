@@ -15,11 +15,10 @@ namespace _Project.Scripts.Enemy
         public override AsteroidParticleView Create()
         {
             var instance = Pool.Get();
-            instance.OnAsteroidParticleShot += Release;
             return instance;
         }
 
-        private void Release(AsteroidParticleView particle)
+        public void Release(AsteroidParticleView particle)
         {
             Pool.Release(particle);
         }

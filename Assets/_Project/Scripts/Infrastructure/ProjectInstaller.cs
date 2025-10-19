@@ -1,5 +1,6 @@
 using _Project.Scripts.Configs;
 using _Project.Scripts.MovementFeature;
+using _Project.Scripts.Services;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Zenject;
@@ -16,6 +17,8 @@ namespace _Project.Scripts.Infrastructure
 
         public override void InstallBindings()
         {
+
+            DeclareSignals();
             SignalBusInstaller.Install(Container);
             Container.Bind<KeyBindingsConfig>()
                 .FromInstance(_keyBindingsConfig)
@@ -44,6 +47,12 @@ namespace _Project.Scripts.Infrastructure
                 .NonLazy();
             
             Container.BindInterfacesAndSelfTo<StrategyMoveAgent>().AsSingle();
+        }
+
+        private void DeclareSignals()
+        {
+            Container.DeclareSignal<Signals.PlayerSpawnedSignal>();
+            Container.DeclareSignal<Signals.EnemyKilledSignal>();
         }
     }
 }
