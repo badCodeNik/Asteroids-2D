@@ -1,0 +1,34 @@
+using System;
+using _Project.Scripts.Health;
+using _Project.Scripts.Physics;
+using _Project.Scripts.World;
+using UnityEngine;
+
+namespace _Project.Scripts.Shooting
+{
+    public class Bullet : PhysicsBody
+    {
+        private WorldBoundsService _worldBoundsService;
+        public event Action<Bullet> OnBulletDestroyRequested;
+
+        public void Initialize(WorldBoundsService worldBoundsService)
+        {
+            _worldBoundsService = worldBoundsService;
+        }
+
+        private void Update()
+        {
+            if (_worldBoundsService.IsOutOfBounds(transform.position))
+                OnBulletDestroyRequested?.Invoke(this);
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.TryGetComponent(out IDamageable damageable))
+            {
+                damageable.TakeDamage();
+                OnBulletDestroyRequested?.Invoke(this);
+            }
+        }
+    }
+}
