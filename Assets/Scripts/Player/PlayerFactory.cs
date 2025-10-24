@@ -11,15 +11,17 @@ namespace _Project.Scripts.Player
         private readonly ResourceLoadingService _resourceLoadingService;
         private readonly SignalBus _signalBus;
         private readonly ICustomPhysicsService _customPhysics;
+        private readonly AdsService _adsService;
         private readonly PlayerView _playerView;
 
         public PlayerFactory(DiContainer container, ResourceLoadingService resourceLoadingService,
-            SignalBus signalBus, ICustomPhysicsService customPhysics) 
+            SignalBus signalBus, ICustomPhysicsService customPhysics, AdsService adsService) 
         {
             _container = container;
             _resourceLoadingService = resourceLoadingService;
             _signalBus = signalBus;
             _customPhysics = customPhysics;
+            _adsService = adsService;
         }
 
         public void Initialize()
@@ -35,6 +37,7 @@ namespace _Project.Scripts.Player
             _container.Bind<PlayerView>().FromInstance(playerView).AsSingle();
             _signalBus.Fire(new Signals.PlayerSpawnedSignal(playerView.transform));
             _customPhysics.RegisterBody(playerView);
+            _adsService.RequestRewardedAd();
             return playerView;
         }
     }
