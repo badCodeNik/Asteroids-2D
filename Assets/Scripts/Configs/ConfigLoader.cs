@@ -20,7 +20,6 @@ namespace _Project.Scripts.Configs
             string json = File.ReadAllText(path);
             T config = JsonUtility.FromJson<T>(json);
 
-            Debug.Log($"Loaded config: {fileName}");
             return config;
         }
 

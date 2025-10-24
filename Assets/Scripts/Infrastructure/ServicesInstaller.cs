@@ -1,7 +1,7 @@
-using _Project.Scripts.Input;
 using _Project.Scripts.Physics;
 using _Project.Scripts.Services;
 using _Project.Scripts.World;
+using Analytics;
 using Zenject;
 
 namespace _Project.Scripts.Infrastructure
@@ -11,6 +11,7 @@ namespace _Project.Scripts.Infrastructure
         public override void InstallBindings()
         {
             Container.BindInterfacesAndSelfTo<AdsService>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<FirebaseInit>().AsSingle().NonLazy();
             Container.Bind<TimerService>().AsTransient();
             Container.Bind<ResourceLoadingService>().AsSingle();
             Container.Bind<WorldBoundsService>().AsSingle();
